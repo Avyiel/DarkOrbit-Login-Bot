@@ -2,9 +2,19 @@
 // | User Configuration (feel free to edit it) |
 // +-------------------------------------------+
 
-var CONFIG_USE_AUTO_LOGIN = false;
-var CONFIG_AUTO_LOGIN_USERNAME = "";
-var CONFIG_AUTO_LOGIN_PASSWORD = "";
+var CONFIG_USE_AUTO_LOGIN = true;
+var charnum=0
+var CONFIG_AUTO_LOGIN_USERNAME = "dark.shadow1";
+var CONFIG_AUTO_LOGIN_PASSWORD = "slam6550";
+if (charnum===0){
+	CONFIG_AUTO_LOGIN_USERNAME = "dark.shadow1";
+	CONFIG_AUTO_LOGIN_PASSWORD = "slam6550";
+}
+if (charnum===1){
+	CONFIG_AUTO_LOGIN_USERNAME = "dont*tread*on*me";
+	 CONFIG_AUTO_LOGIN_PASSWORD = "1234Iamcool";
+}
+
 
 var CONFIG_AUTO_RECONNECT = true;
 
@@ -12,7 +22,7 @@ var CONFIG_AUTO_SHIP_REPAIR = true;
 var CONFIG_AUTO_SHIP_REPAIR_LOCATION = "base"; // Possible locations: "stage", "gate", "base"
 var CONFIG_MAX_SHIP_REPAIRS = 20; // The script will stop once they have been reached.
 
-var CONFIG_USE_PET = false;
+var CONFIG_USE_PET = true;
 var CONFIG_MAX_PET_REPAIRS = 20;
 var CONFIG_PET_GEAR_TO_USE = "autolooter"; // Allowed values: "autolooter", "collector", "passivemode", "guardmode"
 var CONFIG_PET_CHECK_TIMEOUT_IN_MS = 5 * 60 * 1000; // minutes * seconds * milliseconds
@@ -1296,7 +1306,7 @@ Scheduler.prototype.runMainAlgorithm = function() {
 // +---------------------------------------------------------------+
 // | Main Method and Algorithm, this uses everything defined above |
 // +---------------------------------------------------------------+
-
+var Cloak_Image = new Image(TEMPLATE_DIR + "cloackcpu.png");
 function main() {
 
 	// +--------------------------+
@@ -1339,7 +1349,7 @@ function main() {
 
 		Helper.log("Loot collector prepared.");
 	}
-
+	
 	// +----------------------+
 	// | Bot components setup |
 	// +----------------------+
@@ -1380,12 +1390,18 @@ function main() {
 	// +---------------------------------+
 	// | Find and measure the PET window |
 	// +---------------------------------+
-
+	
 	if (CONFIG_USE_PET && !pet.findWindow()) {
 		Helper.log("FATAL! The bot was unable to find the PET window. Stopping now.");
 		return;
 	}
 
+	var screenshot = Browser.takeScreenshot();
+	var location=Vision.findMatch(screenshot, Cloak_Image, 0.98);
+	Helper.log("cloack location ="+location)
+	if (location.isValid()) {
+		Browser.leftClick(location.getRect().getCenter());
+	}
 	// +-------------------------------------+
 	// | Ready to bot, running bot algorithm |
 	// +-------------------------------------+
