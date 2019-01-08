@@ -1,5 +1,5 @@
 // +-------------------------------------------+
-// | User Configuration (feel free to edit it) |say hi
+// | User Configuration (feel free to edit it) |
 // +-------------------------------------------+
 
 var CONFIG_USE_AUTO_LOGIN = true;
@@ -7,7 +7,7 @@ var SelectedUser = 0;
 var CONFIG_AUTO_LOGIN_USERNAME = {"",""};
 var CONFIG_AUTO_LOGIN_PASSWORD = {"",""};
 var BuildTechItems = false;
-var TechItems = {"" ,"" ,""}//
+var TechItems = {"" ,"" ,""}
 
 
 var CONFIG_AUTO_RECONNECT = true;
