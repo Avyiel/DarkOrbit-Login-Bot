@@ -1,5 +1,5 @@
 // +-------------------------------------------+
-// | User Configuration (feel free to edit it) |
+// | User Configuration (feel free to edit it) |say hi
 // +-------------------------------------------+
 
 var CONFIG_USE_AUTO_LOGIN = true;
