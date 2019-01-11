@@ -6,10 +6,7 @@
 var CONFIG_USE_AUTO_LOGIN = true;
 var SelectedUser = "all";
 // [user ,password ,sep amount ,promarium amount, ship with the largest cargo capacity the number where ship is located]
-var mainaccountsInfo = [["dark.shadow1","slam6550",9100,0,1],["slamangell4","slam0443",9100,0,9]
-,["dont*tread*on*me","1234Iamcool",9100,0,5],["--NoFear--","slam0443",0,12900,7],["-*nobo*-","slam0443",0,10000,1],
-["angell_of_death","6550slam",0,11100,2],["-MK28-","slam0443",0,10000,1],["-MK28x2-","slam0443",0,10000,1]
-,["-nothimagen-","slam0443",0,10800,1],["-nothimagen-","slam0443",0,10800,1]];
+var mainaccountsInfo = [["","",9100,0,1],["","",9100,0,9]];
 var sellUsingPet = false;
 var startingAcount = 3;
 
