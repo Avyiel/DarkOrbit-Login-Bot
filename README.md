@@ -1,8 +1,6 @@
 # Free DarkOrbit Pixel Bot
 
-This script makes your spaceship navigate randomly over any DarkOrbit map.
-It will manage your PET, repair your ship, reconnect after disconnects and more.
-Take a look at the features and roadmap section to see what this free and opensource bot can do.
+This script makes your logs in to your accounts and sells matirals
 
 ## How to run this bot script?
 
