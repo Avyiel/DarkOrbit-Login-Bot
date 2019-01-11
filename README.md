@@ -14,4 +14,17 @@ Take a look at the features and roadmap section to see what this free and openso
 
 ## Features and Roadmap:
 
-[x] logs in to account and gets you the dayley login
+[x] Full Background Mode (integrated browser)
+[x] Automatic Login
+[x] Automatic Reconnect
+[x] Automatic Ship Repair
+[x] Adjustable max. Ship Repairs
+[x] Fly back to Map after Death
+[x] Random Map Navigation
+[x] Automatic PET Repair
+[x] Automatic PET Gear Selection
+[ ] Automatic Cloak CPU activation
+[x] Automatic Bonus Box collection
+[ ] Automatic Pirate Booty collection
+[ ] Automatical flee on low HP
+[ ] Automatic NPC Shooting on lower maps
