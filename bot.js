@@ -38,7 +38,7 @@ const AUTO_START = true;
 // +---------------------------------------------------------------------+
 /* eslint-disable no-undef */
 
-const SCRIPT_VERSION = '0.2';
+const SCRIPT_VERSION = '0.3';
 
 
 const TEMPLATE_DIR = 'templates/';
