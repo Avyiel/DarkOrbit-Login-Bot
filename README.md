@@ -8,14 +8,15 @@ Botfather.io script that logs into your accounts, sells materials and applies Se
 - Edit the configuration at the top of the `bot.js` file
 - Use the [botfather.io client](https://botfather.io/downloads) to run the bot script
 
+Alternatively, you can install directly from _botfather_, inspect the `bot.js` file and edit your settings.
 
 ## Features and Roadmap:
 
 [x] Auto-Login
 
-[x] Sell Promerium
+[X] Sell all materials
 
-[ ] Sell any materials
+[ ] Sell specific materials
 
 [x] Upgrade Lasers with Seprom
 
