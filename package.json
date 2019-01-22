@@ -1,0 +1,31 @@
+{
+  "name": "darkorbit-login-bot",
+  "version": "0.2.0",
+  "description": "DarkOrbit Login & Materials Bot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Avyiel/DarkOrbit-Login-Bot.git"
+  },
+  "keywords": [
+    "darkorbit",
+    "bot",
+    "login",
+    "materials",
+    "seprom"
+  ],
+  "author": "Avyiel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Avyiel/DarkOrbit-Login-Bot/issues"
+  },
+  "homepage": "https://github.com/Avyiel/DarkOrbit-Login-Bot#readme",
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.15.0"
+  }
+}
