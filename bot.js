@@ -3,7 +3,7 @@
 // +-------------------------------------------+
 
 // Currently supported languages: EN, DE
-const LANGUAGE = 'DE';
+const LANGUAGE = 'EN';
 
 // Remember: on JavaScript, we start counting at 0
 // That means the 3rd account's index is actually 2
@@ -17,13 +17,6 @@ const ACCOUNTS = [
     seprom: 9100,
     promerium: 0,
     hangar: 1,
-  },
-  {
-    username: 'USERNAME HERE',
-    password: 'PASSWORD HERE',
-    seprom: 4000,
-    promerium: 4000,
-    hangar: 4,
   },
 ];
 
@@ -277,10 +270,9 @@ function sellOre() {
   var sold = false;
   while (!sold) {
     if (isImagePresent(SELL_BUTTON_TPL, 0.99)) {
-      Helper.log('Selling ore...');
+      Helper.log('Clicking sell...');
       findAndClick(SELL_BUTTON_TPL, null, 0.99);
     } else {
-      Helper.log('No more ore to sell.');
       sold = true;
     }
   }
@@ -348,6 +340,7 @@ function runScriptLogic(userIdx) {
   Helper.log('Selling ore...');
   sellOre();
   Helper.log('Sold ore.');
+
   Helper.log('Upgrading lasers with Seprom...');
   upgradeLasers();
   Helper.log('Upgraded lasers with Seprom.');
@@ -356,6 +349,8 @@ function runScriptLogic(userIdx) {
   goToSkylab();
   fillMaterialAmounts(userIdx);
   Helper.log('Transfered ore to ship.');
+
+  Helper.sleep(1);
 
   Helper.log('Logging out of account #', userIdx);
   logout();
