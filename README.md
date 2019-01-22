@@ -1,7 +1,7 @@
 # Free DarkOrbit Login & Materials Bot
 
-Botfather.io script that logs into your accounts, and sells materials and applies Seprom. 
-
+Botfather.io script that logs into your accounts, sells materials and applies Seprom to lasers.
+        
 ## How to run this bot script?
 
 - Download the latest release and extract it
