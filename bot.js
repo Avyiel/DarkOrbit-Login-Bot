@@ -139,7 +139,7 @@ function openGameMap() {
   Browser.loadUrl(ingameUrl);
   Browser.finishLoading();
 
-  let btnClicked = false;
+  var btnClicked = false;
   while (!btnClicked) {
     Helper.log('Waiting for the game to load...');
 
@@ -157,7 +157,7 @@ function openGameMap() {
 }
 
 function minimizeAllWindows() {
-  let anyMatched = true;
+  var anyMatched = true;
   while (anyMatched) {
     const screenshot = Browser.takeScreenshot();
     const minimizeMatch = Vision.findMatch(screenshot, MINIMIZE_TPL, 0.95);
@@ -233,7 +233,7 @@ function sellOre() {
     Helper.sleep(2);
   }
 
-  let sold = false;
+  var sold = false;
   while (!sold) {
     if (isImagePresent(SELL_BUTTON_TPL)) {
       findAndClick(SELL_BUTTON_TPL, null, 0.97);
@@ -331,7 +331,7 @@ function main() {
     Helper.log('Running script for all accounts:', ACCOUNTS.length);
 
     const numAccs = ACCOUNTS.length;
-    for (let idx = 0; idx < numAccs; idx += 1) {
+    for (var idx = 0; idx < numAccs; idx += 1) {
       Helper.log(`Running for account #${idx}...`);
       runScriptLogic(idx);
       Helper.log(`Finished running for account #${idx}.`);
