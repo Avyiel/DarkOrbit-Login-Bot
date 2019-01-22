@@ -36,36 +36,36 @@ const SCRIPT_VERSION = '0.2';
 
 
 const TEMPLATE_DIR = 'templates/';
-const CLIENT_TPL_DIR = `${TEMPLATE_DIR}client/`;
-const PET_TPL_DIR = `${TEMPLATE_DIR}pet/`;
-const REFINING_DIR = `${TEMPLATE_DIR}refining/`;
-const TRADE_DIR = `${TEMPLATE_DIR}trade/`;
+const CLIENT_TPL_DIR = TEMPLATE_DIR + 'client/';
+const PET_TPL_DIR = TEMPLATE_DIR + 'pet/';
+const REFINING_DIR = TEMPLATE_DIR + 'refining/';
+const TRADE_DIR = TEMPLATE_DIR + 'trade/';
 
-const START_BUTTON_TPL = new Image(`${CLIENT_TPL_DIR}start_button.png`);
-const MINIMIZE_TPL = new Image(`${CLIENT_TPL_DIR}minimize_button.png`);
-const XBUTTONS_TPL = new Image(`${CLIENT_TPL_DIR}close_button.png`);
-const X2BUTTONS_TPL = new Image(`${CLIENT_TPL_DIR}close_buttton_two.png`);
+const START_BUTTON_TPL = new Image(CLIENT_TPL_DIR + 'start_button.png');
+const MINIMIZE_TPL = new Image(CLIENT_TPL_DIR + 'minimize_button.png');
+const XBUTTONS_TPL = new Image(CLIENT_TPL_DIR + 'close_button.png');
+const X2BUTTONS_TPL = new Image(CLIENT_TPL_DIR + 'close_buttton_two.png');
 
-const PET_ICON_TPL = new Image(`${PET_TPL_DIR}pet_icon.png`);
-const PET_PLAY_BTN_TPL = new Image(`${PET_TPL_DIR}play_button.png`);
-const PET_STOP_BTN_TPL = new Image(`${PET_TPL_DIR}stop_button.png`);
-const PET_GEAR_BTN_TPL = new Image(`${PET_TPL_DIR}gear_dropdown_button.png`);
-const PET_CARGO_TRADE = new Image(`${PET_TPL_DIR}trade_entry.png`);
+const PET_ICON_TPL = new Image(PET_TPL_DIR + 'pet_icon.png');
+const PET_PLAY_BTN_TPL = new Image(PET_TPL_DIR + 'play_button.png');
+const PET_STOP_BTN_TPL = new Image(PET_TPL_DIR + 'stop_button.png');
+const PET_GEAR_BTN_TPL = new Image(PET_TPL_DIR + 'gear_dropdown_button.png');
+const PET_CARGO_TRADE = new Image(PET_TPL_DIR + 'trade_entry.png');
 
-const REFINING_TPL = new Image(`${REFINING_DIR}refine.png`);
-const LASER_TPL = new Image(`${REFINING_DIR}lasers.png`);
-const SEPROM_TPL = new Image(`${REFINING_DIR}seprom.png`);
-const UPGRADE_BUTTON_TPL = new Image(`${REFINING_DIR}upgrade_button.png`);
-const UPGRADE_BUTTON_ON_TPL = new Image(`${REFINING_DIR}upgrade_button_on.png`);
-const UPGRADE_BUTTON_OFF_TPL = new Image(`${REFINING_DIR}upgrade_button_off.png`);
-const SELECT_QTY_DROPDOWN_TPL = new Image(`${REFINING_DIR}qty_dropdown.png`);
-const SCROLL_DOWN_TPL = new Image(`${REFINING_DIR}scroll_down.png`);
-const MAX_SEPROM_TPL = new Image(`${REFINING_DIR}max_seprom.png`);
+const REFINING_TPL = new Image(REFINING_DIR + 'refine.png');
+const LASER_TPL = new Image(REFINING_DIR + 'lasers.png');
+const SEPROM_TPL = new Image(REFINING_DIR + 'seprom.png');
+const UPGRADE_BUTTON_TPL = new Image(REFINING_DIR + 'upgrade_button.png');
+const UPGRADE_BUTTON_ON_TPL = new Image(REFINING_DIR + 'upgrade_button_on.png');
+const UPGRADE_BUTTON_OFF_TPL = new Image(REFINING_DIR + 'upgrade_button_off.png');
+const SELECT_QTY_DROPDOWN_TPL = new Image(REFINING_DIR + 'qty_dropdown.png');
+const SCROLL_DOWN_TPL = new Image(REFINING_DIR + 'scroll_down.png');
+const MAX_SEPROM_TPL = new Image(REFINING_DIR + 'max_seprom.png');
 
-const TRADE_ICON_TPL = new Image(`${TEMPLATE_DIR}trade_button.png`);
-const TRADE_WINDOW_CORNER_TPL = new Image(`${TRADE_DIR}trade_window_corner.png`);
-const SELL_BUTTON_TPL = new Image(`${TRADE_DIR}sell_button.png`);
-const SEPROM_EMPTY = new Image(`${REFINING_DIR}seprom_empty.png`);
+const TRADE_ICON_TPL = new Image(TEMPLATE_DIR + 'trade_button.png');
+const TRADE_WINDOW_CORNER_TPL = new Image(TRADE_DIR + 'trade_window_corner.png');
+const SELL_BUTTON_TPL = new Image(TRADE_DIR + 'sell_button.png');
+const SEPROM_EMPTY = new Image(REFINING_DIR + 'seprom_empty.png');
 
 // +-----------------------------------------------------------------+
 // | Business Logic (DON'T TOUCH ANYTHING BELOW THIS LINE AS A USER) |
@@ -92,11 +92,11 @@ function autoLogin(username, password) {
 
   Helper.log('Entering account credentials...');
 
-  const fillUnameJs = `document.getElementById('bgcdw_login_form_username').value = '${username}';`;
+  const fillUnameJs = "document.getElementById('bgcdw_login_form_username').value = " + username + ';';
   Browser.executeJavascript(fillUnameJs);
   Helper.sleep(1);
 
-  const fillPasswJs = `document.getElementById('bgcdw_login_form_password').value = '${password}';`;
+  const fillPasswJs = "document.getElementById('bgcdw_login_form_password').value = " + password + ';';
   Browser.executeJavascript(fillPasswJs);
   Helper.sleep(1);
 
@@ -134,7 +134,7 @@ function dragAndDrop(startImage, stopImage) {
 }
 
 function openGameMap() {
-  const ingameUrl = `${Browser.getUrl().getHost()}/indexInternal.es?action=internalMapRevolution`;
+  const ingameUrl = Browser.getUrl().getHost() + '/indexInternal.es?action=internalMapRevolutio';
 
   Browser.loadUrl(ingameUrl);
   Browser.finishLoading();
@@ -250,7 +250,7 @@ function sellOre() {
 }
 
 function goToSkylab() {
-  const skylabUrl = `${Browser.getUrl().getHost()}/indexInternal.es?action=internalSkylab`;
+  const skylabUrl = Browser.getUrl().getHost() + '/indexInternal.es?action=internalSkylab';
   Browser.loadUrl(skylabUrl);
   Browser.finishLoading();
 }
@@ -258,8 +258,8 @@ function goToSkylab() {
 function fillMaterialAmounts(userIdx) {
   const openTransportModule = "Skylab.showModule('transportModule');";
   const sendMaterials = "Skylab.sendMaterials('normal');";
-  const fillSepromAmount = `document.getElementById('count_seprom').value = ${ACCOUNTS[userIdx].seprom};`;
-  const fillPromAmount = `document.getElementById('count_promerium').value = ${ACCOUNTS[userIdx].promerium};`;
+  const fillSepromAmount = "document.getElementById('count_seprom').value = " + ACCOUNTS[userIdx].seprom + ';';
+  const fillPromAmount = "document.getElementById('count_promerium').value = " + ACCOUNTS[userIdx].promerium + ';';
 
   Browser.executeJavascript(openTransportModule);
   Helper.sleep(1);
@@ -276,7 +276,7 @@ function openHangar() {
 }
 
 function selectHangar(hangarIdx) {
-  const clickHangarIdx = `document.getElementsByClassName('header_hangar_slot')[${hangarIdx} - 1].click()`;
+  const clickHangarIdx = "document.getElementsByClassName('header_hangar_slot')[" + hangarIdx - 1 + '].click();';
   Browser.executeJavascript(clickHangarIdx);
 
   Helper.log('Selected target Hangar.');
@@ -284,7 +284,7 @@ function selectHangar(hangarIdx) {
 }
 
 function runScriptLogic(userIdx) {
-  Helper.log(`Logging in automatically to account #${userIdx}...`);
+  Helper.log('Logging in automatically to account #', userIdx);
   autoLogin(ACCOUNTS[userIdx].username, ACCOUNTS[userIdx].password);
   Helper.log('Logged in automatically.');
 
@@ -310,7 +310,7 @@ function runScriptLogic(userIdx) {
   fillMaterialAmounts(userIdx);
   Helper.log('Transfered ore to ship.');
 
-  Helper.log(`Logging out of account #${userIdx}...`);
+  Helper.log('Logging out of account #', userIdx);
   logout();
   Helper.log('Logged out.');
 }
