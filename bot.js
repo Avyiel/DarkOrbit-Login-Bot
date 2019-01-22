@@ -1,408 +1,349 @@
 // +-------------------------------------------+
 // | User Configuration (feel free to edit it) |
 // +-------------------------------------------+
-//https://shop.bigpoint-payment.com/?req=YToyMDp7czo2OiJkZXNpZ24iO3M6NDoibWF5YSI7czo2OiJpZnJhbWUiO2k6MTtzOjk6Iml0ZW1Hcm91cCI7aToxMDE7czo0OiJpdGVtIjthOjE6e2k6MDtzOjMxOiIxMDFfbWluaWp1ZWdvc19jcF8xLjAwMDBfMF9OT05FIjt9czo3OiJpc0V2ZW50IjtiOjE7czo2OiJ1c2VySUQiO3M6OToiMTY5NDk5ODE2IjtzOjg6InVzZXJuYW1lIjtzOjM1OiLjgI5q44CP44COb%2BOAj%2BOAjmvjgI%2FjgI5l44CP44COcuOAjyI7czo4OiJtZW1iZXJJRCI7czo5OiIzMzMyMjAzODQiO3M6NDoiYnBpZCI7czozMjoiNWJlYzQ0MjJMWXJhZWljRGpWRnczVzBtRnEzc1ZlOEIiO3M6NzoidXNlckFnZSI7aTo0OTtzOjE3OiJyZXF1ZXN0VHJhY2tpbmdJZCI7czoyMzoiNWMzNjczYWJlMDg2YTEuNjEwMzIyMDQiO3M6MTQ6ImZiX2FwcGxpY2F0aW9uIjtiOjA7czo5OiJwcm9qZWN0SUQiO3M6MzoiMTQ1IjtzOjM6ImFpZCI7czozOiI4NjUiO3M6MzoiYWlwIjtzOjA6IiI7czo0OiJsYW5nIjtzOjI6ImVuIjtzOjU6ImJwdGlkIjtzOjMyOiIyY2ZjYTFkZTkxMzBhOTk2ODk5NmRmZjJjNGEwNWQxMyI7czozOiJkZXYiO2I6MDtzOjQ6InRpbWUiO2k6MTU0NzA3MjQyODtzOjEwOiJzZXNzaW9uX2lkIjtzOjMyOiI5MWc1YzM2NzNhY2dhMWE1Y2E4ZzVjMzY3M2FjZDIxZiI7fQ%3D%3D&aid=865&aip=&bptid=2cfca1de9130a9968996dff2c4a05d13&hash=01b7380fb93e654a111a2c916ba6372a&sid=91g5c3673acga1a5ca8g5c3673acd21f&itemGroup=101&action=internalPaymentProxy
-//https://shop.bigpoint-payment.com/?req=YToyMDp7czo2OiJkZXNpZ24iO3M6NDoibWF5YSI7czo2OiJpZnJhbWUiO2k6MTtzOjk6Iml0ZW1Hcm91cCI7aToxMDE7czo0OiJpdGVtIjthOjE6e2k6MDtzOjMxOiIxMDFfbWluaWp1ZWdvc19jcF8xLjAwMDBfMF9OT05FIjt9czo3OiJpc0V2ZW50IjtiOjE7czo2OiJ1c2VySUQiO3M6ODoiNjI2ODg5OTAiO3M6ODoidXNlcm5hbWUiO3M6MTI6IkRhcmsuU2hhZG93MSI7czo4OiJtZW1iZXJJRCI7czo5OiIxMzQ3MzUwMzQiO3M6NDoiYnBpZCI7czozMjoiNWMxODFjZmZwNWNlYXNNVFVPU2hLbWdqRFNuWUhvQ0IiO3M6NzoidXNlckFnZSI7aTo0ODtzOjE3OiJyZXF1ZXN0VHJhY2tpbmdJZCI7czoyMzoiNWMzNmNiMGQwYWY5NjIuMDI0Nzc3NTkiO3M6MTQ6ImZiX2FwcGxpY2F0aW9uIjtiOjA7czo5OiJwcm9qZWN0SUQiO3M6MzoiMTQ1IjtzOjM6ImFpZCI7czoxOiIwIjtzOjM6ImFpcCI7czowOiIiO3M6NDoibGFuZyI7czoyOiJlbiI7czo1OiJicHRpZCI7czozMjoiMzU3NTkwMDU3ZjM2NTk5Zjg1NmRiOTJlZjE2OWVkOTEiO3M6MzoiZGV2IjtiOjA7czo0OiJ0aW1lIjtpOjE1NDcwOTQ3OTg7czoxMDoic2Vzc2lvbl9pZCI7czozMjoiOTFnNWMzNmNiMGVnM2JjOGVkZWc1YzM2Y2IwZTFhMDIiO30%3D&aid=0&aip=&bptid=357590057f36599f856db92ef169ed91&hash=315cb0e0b01dd7017dd0133dbbc6c42f&sid=91g5c36cb0eg3bc8edeg5c36cb0e1a02&itemGroup=101&action=internalPaymentProxy
-var CONFIG_USE_AUTO_LOGIN = true;
-var SelectedUser = "all";
-// [user ,password ,sep amount ,promarium amount, ship with the largest cargo capacity the number where ship is located]
-var mainaccountsInfo = [["","",9100,0,1],["","",9100,0,9]];
-var sellUsingPet = false;
-var startingAcount = 3;
+
+// Remember: on JavaScript, we start counting at 0
+// That means the 3rd account's index is actually 2
+const SELECTED_USER = 'ALL';
+
+// You may have as many accounts as you want. Just copy/paste and edit
+const ACCOUNTS = [
+  {
+    username: 'USERNAME HERE',
+    password: 'PASSWORD HERE',
+    seprom: 9100,
+    promerium: 0,
+    hangar: 1,
+  },
+  {
+    username: 'USERNAME HERE',
+    password: 'PASSWORD HERE',
+    seprom: 4000,
+    promerium: 4000,
+    hangar: 9,
+  },
+];
+
+// If set to false, you _MUST_ be near the trade station on your home base
+const SELL_WITH_PET = false;
 
 // +---------------------------------------------------------------------+
 // | Templates and Data (DON'T TOUCH ANYTHING BELOW THIS LINE AS A USER) |
 // +---------------------------------------------------------------------+
+/* eslint-disable no-undef */
 
-var SCRIPT_VERSION = "1.1.1";
-
-
-var TEMPLATE_DIR = "templates/";
-var CLIENT_TPL_DIR = TEMPLATE_DIR + "client/";
-var MINIMAP_DIR = TEMPLATE_DIR + "minimap/";
-var PET_TPL_DIR = TEMPLATE_DIR + "pet/";
-var SHIPS_DIR = TEMPLATE_DIR + "ships/";
-var MM_LEVEL_DIR = MINIMAP_DIR + "levels/";
-var MM_MAPNAMES_DIR = MINIMAP_DIR + "mapnames/";
+const SCRIPT_VERSION = '0.2';
 
 
+const TEMPLATE_DIR = 'templates/';
+const CLIENT_TPL_DIR = `${TEMPLATE_DIR}client/`;
+const PET_TPL_DIR = `${TEMPLATE_DIR}pet/`;
+const REFINING_DIR = `${TEMPLATE_DIR}refining/`;
+const TRADE_DIR = `${TEMPLATE_DIR}trade/`;
 
-var LOGOUT_BUTTON_TPL = new Image(TEMPLATE_DIR + "logout_button.png");
-var START_BUTTON_TPL = new Image(CLIENT_TPL_DIR + "start_button.png");
+const START_BUTTON_TPL = new Image(`${CLIENT_TPL_DIR}start_button.png`);
+const MINIMIZE_TPL = new Image(`${CLIENT_TPL_DIR}minimize_button.png`);
+const XBUTTONS_TPL = new Image(`${CLIENT_TPL_DIR}close_button.png`);
+const X2BUTTONS_TPL = new Image(`${CLIENT_TPL_DIR}close_buttton_two.png`);
 
-var PET_PLAY_BTN_TPL = new Image(PET_TPL_DIR + "play_button.png");
-var PET_STOP_BTN_TPL = new Image(PET_TPL_DIR + "stop_button.png");
-var GENERIC_PET_BTN_TPL = new Image(PET_TPL_DIR + "generic_button.png");
-var GEAR_DROPDOWN_BTN_TPL = new Image(PET_TPL_DIR + "gear_dropdown_button.png");
-var MINIMIZI_TPL = new Image(TEMPLATE_DIR + "minimize.png");
-var XBUTTONS_TPL = new Image(TEMPLATE_DIR + "xbtn2.png");
-var X2BUTTONS_TPL = new Image(TEMPLATE_DIR + "exmark.png");
+const PET_ICON_TPL = new Image(`${PET_TPL_DIR}pet_icon.png`);
+const PET_PLAY_BTN_TPL = new Image(`${PET_TPL_DIR}play_button.png`);
+const PET_STOP_BTN_TPL = new Image(`${PET_TPL_DIR}stop_button.png`);
+const PET_GEAR_BTN_TPL = new Image(`${PET_TPL_DIR}gear_dropdown_button.png`);
+const PET_CARGO_TRADE = new Image(`${PET_TPL_DIR}trade_entry.png`);
 
-var PET_WINDOW_CORNER_TPL = new Image(PET_TPL_DIR + "window_corner.png");
+const REFINING_TPL = new Image(`${REFINING_DIR}refine.png`);
+const LASER_TPL = new Image(`${REFINING_DIR}lasers.png`);
+const SEPROM_TPL = new Image(`${REFINING_DIR}seprom.png`);
+const UPGRADE_BUTTON_TPL = new Image(`${REFINING_DIR}upgrade_button.png`);
+const UPGRADE_BUTTON_ON_TPL = new Image(`${REFINING_DIR}upgrade_button_on.png`);
+const UPGRADE_BUTTON_OFF_TPL = new Image(`${REFINING_DIR}upgrade_button_off.png`);
+const SELECT_QTY_DROPDOWN_TPL = new Image(`${REFINING_DIR}qty_dropdown.png`);
+const SCROLL_DOWN_TPL = new Image(`${REFINING_DIR}scroll_down.png`);
+const MAX_SEPROM_TPL = new Image(`${REFINING_DIR}max_seprom.png`);
 
-var AutoLogin = function(username, password) {
-	Helper.log("Loading game website...");
-	
-	Browser.loadUrl("http://darkorbit.com/?lang=en");
-	Browser.finishLoading();
+const TRADE_ICON_TPL = new Image(`${TEMPLATE_DIR}trade_button.png`);
+const TRADE_WINDOW_CORNER_TPL = new Image(`${TRADE_DIR}trade_window_corner.png`);
+const SELL_BUTTON_TPL = new Image(`${TRADE_DIR}sell_button.png`);
+const SEPROM_EMPTY = new Image(`${REFINING_DIR}seprom_empty.png`);
 
-	Helper.log("Entering account credentials...");
+// +-----------------------------------------------------------------+
+// | Business Logic (DON'T TOUCH ANYTHING BELOW THIS LINE AS A USER) |
+// +-----------------------------------------------------------------+
 
-	var fill_uname_js = "document.getElementById('bgcdw_login_form_username').value = '" + username + "';";
-	Browser.executeJavascript(fill_uname_js);
-	Helper.sleep(1);
-	
-	var fill_pword_js = "document.getElementById('bgcdw_login_form_password').value = '" + password + "';";
-	Browser.executeJavascript(fill_pword_js);
-	Helper.sleep(1);
-	
-	var formsubmit_js = "document.bgcdw_login_form.submit();";
-	Browser.executeJavascript(formsubmit_js);
+function findAndClick(image, ss, threshold) {
+  const screenshot = ss || Browser.takeScreenshot();
+  const location = Vision.findMatch(screenshot, image, threshold);
 
-	Helper.log("Form submitted.");
-	Helper.sleep(2);
+  Helper.sleep(2);
 
-	Browser.finishLoading();
+  if (location.isValid()) {
+    Browser.leftClick(location.getRect().getCenter());
+  }
+
+  return location.isValid();
 }
 
-var findAndClick = function(image,screenShot){
-	
-	if(screenShot===""){
-		screenShot = Browser.takeScreenshot();
-	}
-	var location=Vision.findMatch(screenShot, image, 0.90);
-	Helper.log(location.isValid());
-	Helper.sleep(4);
-	if (location.isValid()) {
-		Browser.leftClick(location.getRect().getCenter());
-		Helper.log("clicked image");
+function autoLogin(username, password) {
+  Helper.log('Loading game website...');
 
-	}else{
+  Browser.loadUrl('http://darkorbit.com/?lang=en');
+  Browser.finishLoading();
 
-	}
-	
-	return location.isValid();
-}
-var GoToTechLab = function(items){
-	return
-}
-var GoToSkyLab = function(){
-	var skyLab_url = Browser.getUrl().getHost() + "/indexInternal.es?action=internalSkylab";
-	Browser.loadUrl(skyLab_url);
-	Browser.finishLoading();
-	return
-}
-var isIngame = function() {
-	if (Browser.getUrl().getQuery().indexOf("internalMapRevolution") === -1) {
-		Helper.debug("Client not ingame. Url does not contain internalMapRevolution");
-		return false;
-	}
+  Helper.log('Entering account credentials...');
 
-	var screenshot = Browser.takeScreenshot();
-	var logout_button_match = Vision.findMatch(Browser.takeScreenshot(), LOGOUT_BUTTON_TPL, 0.99);
+  const fillUnameJs = `document.getElementById('bgcdw_login_form_username').value = '${username}';`;
+  Browser.executeJavascript(fillUnameJs);
+  Helper.sleep(1);
 
-	Helper.debug("Logout button match (isIngame check):", logout_button_match);
-	return logout_button_match.isValid();
-}
-var GoInToGame = function() {
-	var ingame_url = Browser.getUrl().getHost() + "/indexInternal.es?action=internalMapRevolution";
+  const fillPasswJs = `document.getElementById('bgcdw_login_form_password').value = '${password}';`;
+  Browser.executeJavascript(fillPasswJs);
+  Helper.sleep(1);
 
-	Browser.loadUrl(ingame_url);
-	Browser.finishLoading();
-	var btnclicked=false;
-	while (true) {
-		Helper.log("Waiting for the game to load...")
+  const submitFormJs = 'document.bgcdw_login_form.submit();';
+  Browser.executeJavascript(submitFormJs);
 
-		var screenshot = Browser.takeScreenshot();
-		var start_button_match = Vision.findMatch(screenshot, START_BUTTON_TPL, 0.97);
-		
-		if (start_button_match.isValid()) {
-			Browser.leftClick(start_button_match.getRect().getCenter());
-			Helper.log("Game start button clicked.");
-			btnclicked=true
-		}else{
-			if(btnclicked){
-				return;
-			}
-		}
+  Helper.log('Form submitted.');
+  Helper.sleep(2);
 
-		Helper.sleep(3);
-	}
-}
-var minimiseAllWindows = function() {
-	while (true) {
-		var screenshot = Browser.takeScreenshot();
-		var logout_match = Vision.findMatch(screenshot, LOGOUT_BUTTON_TPL, 0.97);
-		if (logout_match.isValid()) {
-			break;
-		}
-	}
-
-	Helper.sleep(5);
-	
-	while (true) {
-		Helper.log("clicked minimise")
-		var screenshot = Browser.takeScreenshot();
-		var minimize_match = Vision.findMatch(screenshot, MINIMIZI_TPL, 0.95);
-		var x_match = Vision.findMatch(screenshot, XBUTTONS_TPL, 0.93);
-		var x2_match = Vision.findMatch(screenshot, X2BUTTONS_TPL, 0.93);
-		if (minimize_match.isValid()||x_match.isValid()) {
-			if(x_match.isValid()){
-				x=x_match.getRect().getRight()-3;
-				y=x_match.getRect().getTop()+3;
-				Browser.leftClick(Point(x,y));
-				Helper.log("minimize button clicked.");
-			}
-			if(x2_match.isValid()){
-				x=x2_match.getRect().getRight()-3;
-				y=x2_match.getRect().getTop()+3;
-				Browser.leftClick(Point(x,y));
-				Helper.log("minimize button clicked.");
-			}
-			if(minimize_match.isValid()){
-				x=minimize_match.getRect().getRight()-3;
-				y=minimize_match.getRect().getTop()+3;
-				Browser.leftClick(Point(x,y));
-				Helper.log("minimize button clicked.");
-			}
-			
-		}else{
-			return;
-		}
-		Helper.sleep(1);
-	}
+  Browser.finishLoading();
 }
 
-var PET_SHOW_HIDE_TPL = new Image(PET_TPL_DIR + "petIcon.png");
-
-
-var TEMPLATE_DIR = "templates/";
-var PET_TPL_DIR = TEMPLATE_DIR + "pet/";
-var REFINING_DIR =TEMPLATE_DIR + "refining/";
-
-var REFINING_TPL = new Image(REFINING_DIR + "refining.png");
-var LASER_TPL = new Image(REFINING_DIR + "lasers.png");
-var SEPROM_TPL = new Image(REFINING_DIR + "seprom.png");
-var UPGRADE_TPL = new Image(REFINING_DIR + "upgradeBtn.png");
-var SHOW_MORE_TPL = new Image(REFINING_DIR + "goDown.png");
-var SEP_SELECT_TPL = new Image(REFINING_DIR + "downerow.png");
-var UPGRADE2_TPL = new Image(REFINING_DIR + "upgradebtn.png");
-var AT_MAX_SEP_TPL = new Image(REFINING_DIR + "atBotom.png");
-var HIGH_SEP_TPL = new Image(REFINING_DIR + "highSep.png");
-
-var MINIMIZI_TPL = new Image(TEMPLATE_DIR + "minimize.png");
-var TRADE_SCREEN_TPL = new Image(TEMPLATE_DIR + "tradeRaw.png");
-var SELL_BTN_TPL = new Image(TEMPLATE_DIR + "sellBtn.png");
-var PET_PLAY_BTN_TPL = new Image(PET_TPL_DIR + "play_button.png");
-var PET_STOP_BTN_TPL = new Image(PET_TPL_DIR + "stop_button.png");
-var GEAR_DROPDOWN_BTN_TPL = new Image(PET_TPL_DIR + "gear_dropdown_button.png");
-var PET_CARGO_TRADE = new Image(PET_TPL_DIR + "cargoTrade.png");
-
-var LOGOUT_BUTTON_TPL = new Image(TEMPLATE_DIR + "logout_button.png");
-
-
-var findAndClick = function(image, screenShot, threshold){
-	// click center of image
-	if(screenShot===""){
-		screenShot = Browser.takeScreenshot();
-	}
-	var location=Vision.findMatch(screenShot, image, threshold);
-	Helper.log(location.isValid());
-	Helper.sleep(2);
-	if (location.isValid()) {
-		Browser.leftClick(location.getRect().getCenter());
-		Helper.log("clicked image");
-	}
-	
-	return location.isValid();
-}
-var testImage=function(image){
-	screenShot = Browser.takeScreenshot();
-	var location=Vision.findMatch(screenShot, image, 0.97);
-	return location.isValid();
-}
-var clickButtonTillEspectedHappens = function(clickImage, expectedImage, stall){
-	var loops=0
-	while(true){
-		Helper.log("clicking the center of an image");
-		findAndClick(clickImage,"",0.92);
-		Browser.moveMouseTo(new Point(0,0));
-		Helper.log("test expected image");
-		Helper.sleep(stall);
-		if(testImage(expectedImage)){
-			return true;
-		}
-		loops+=1
-		if (loops>12){
-			return false;
-		}
-	}
-}
-var clickAllInstances= function (image){
-	while(true){
-		if(testImage(image)){
-			Helper.log()
-			findAndClick(image,"",0.97)
-		}else{
-			return;
-		}
-
-	}
+function logout() {
+  Browser.loadUrl('http://darkorbit.com/indexInternal.es?action=externalLogout');
+  Browser.finishLoading();
 }
 
-var startDragStop = function(startImage,stopImage){
-	Helper.sleep(3)
-	var screenShot = Browser.takeScreenshot();
-	var position=Vision.findMatch(screenShot, startImage, 0.94);
-	Browser.pressLeft(position.getRect().getCenter());
-	Helper.sleep(2)
-
-	var location=Vision.findMatch(screenShot, stopImage, 0.94);
-	Browser.releaseLeft(location.getRect().getCenter());
-	Browser.leftClick(location.getRect().getCenter());
+function isImagePresent(image) {
+  screenshot = Browser.takeScreenshot();
+  const location = Vision.findMatch(screenshot, image, 0.97);
+  return location.isValid();
 }
 
-var TRADE_BUTTON_TPL = new Image(TEMPLATE_DIR + "tradeBtn.png");
-var SELL_ICON_TPL = new Image(TEMPLATE_DIR + "sellbtn.png");
-var CANT_REFINE_TPL = new Image(REFINING_DIR + "cantRefine.png");
-function sellAndUpgrade() {
-	var val = true;
-	if(sellUsingPet){
-		Helper.log("starting pet");
-		findAndClick(PET_SHOW_HIDE_TPL,"",0.90);
-		Helper.sleep(2);
-		findAndClick(PET_PLAY_BTN_TPL,"",0.90);
-		Helper.sleep(2);
-		findAndClick(GEAR_DROPDOWN_BTN_TPL,"",0.90);
-		Helper.sleep(2);
-		findAndClick(PET_CARGO_TRADE,"",0.90);
-		Helper.sleep(2);
-	}
-	findAndClick(SELL_ICON_TPL,"",0.90);
-	Helper.sleep(2);
-	while(true){
-		if(testImage(SELL_BTN_TPL)){
-			Helper.log();
-			findAndClick(SELL_BTN_TPL,"",0.97);
-		}else{
-			break;
-		}
-	
-	}
-		Helper.sleep(2);
-		findAndClick(TRADE_BUTTON_TPL,"",0.90);
-		Helper.sleep(2);
-		findAndClick(PET_STOP_BTN_TPL,"",0.90);
-	
+function dragAndDrop(startImage, stopImage) {
+  const startPos = Vision.findMatch(Browser.takeScreenshot(), startImage, 0.94);
+  const endPos = Vision.findMatch(Browser.takeScreenshot(), stopImage, 0.94);
 
-	Helper.sleep(2);
-	findAndClick(REFINING_TPL,"",0.90);
-	Helper.sleep(2);
-	findAndClick(UPGRADE_TPL,"",0.90);
-	Helper.sleep(2);
-	if (!testImage(CANT_REFINE_TPL)){
-		startDragStop(SEPROM_TPL,LASER_TPL);
-		Helper.log("click sep");
-		Helper.sleep(2);
-		findAndClick(SEP_SELECT_TPL,"",0.90);
-		Helper.sleep(2)
-		findAndClick(SHOW_MORE_TPL,"",0.90);
-		Helper.sleep(2)
-		findAndClick(HIGH_SEP_TPL,"",0.95);
-		Helper.sleep(2)
-		findAndClick(UPGRADE2_TPL,"",0.97);
-	}
-	Helper.sleep(2)
-	findAndClick(LOGOUT_BUTTON_TPL,"",0.97);
-	
-
-	
+  Browser.pressLeft(startPos.getRect().getCenter());
+  Helper.sleep(2);
+  Browser.moveMouseTo(endPos.getRect().getCenter());
+  Helper.sleep(2);
+  Browser.releaseLeft(endPos.getRect().getCenter());
+  Helper.msleep(500);
+  Browser.leftClick(endPos.getRect().getCenter());
 }
 
-var TEMPLATE_DIR = "templates/";
-var SEND_BTN_TPL = new Image(TEMPLATE_DIR + "send.png");
+function openGameMap() {
+  const ingameUrl = `${Browser.getUrl().getHost()}/indexInternal.es?action=internalMapRevolution`;
 
+  Browser.loadUrl(ingameUrl);
+  Browser.finishLoading();
 
+  let btnClicked = false;
+  while (!btnClicked) {
+    Helper.log('Waiting for the game to load...');
 
+    const screenshot = Browser.takeScreenshot();
+    const startButtonMatch = Vision.findMatch(screenshot, START_BUTTON_TPL, 0.97);
 
+    if (startButtonMatch.isValid()) {
+      Browser.leftClick(startButtonMatch.getRect().getCenter());
+      Helper.log('Game start button clicked.');
+      btnClicked = true;
+    }
 
-function fillInMatiralAmounts(userNum){
-	
-	
-	var fillInSep = "document.getElementById('module_transportModule_small').click();";
-	Browser.executeJavascript(fillInSep);
-	Helper.sleep(1);
-
-	var fill_pword_js = "document.getElementById('count_seprom').value = " + mainaccountsInfo[userNum][2] + ";";
-	Browser.executeJavascript(fill_pword_js);
-
-	fill_pword_js = "document.getElementById('count_promerium').value = " + mainaccountsInfo[userNum][3] + ";";
-	Browser.executeJavascript(fill_pword_js);
-	
-	Helper.sleep(3)
-	findAndClick(SEND_BTN_TPL,"",0.80)
-
-} 
-
-
-var SHIPS_DIR = TEMPLATE_DIR + "ships/";
-var SHIPS = [10 ,28 ,45 ,66 ,80 ,100 ,120 ,140 ,160 ]
-var HANGER_TPL = new Image(SHIPS_DIR + "hanger.png");
-function GotoSelectShip(shipNum){
-	screenShot = Browser.takeScreenshot();
-	var location=Vision.findMatch(screenShot, HANGER_TPL, 0.90);
-	Helper.log("the ships number is",shipNum);
-	Helper.sleep(2);
-	var x=location.getRect().getRight();
-	var y = location.getRect().getCenter().getY()
-	clickpnt=new Point(x+24,y)
-	Browser.leftClick(clickpnt)
-	Helper.sleep(2);
-	
-	Browser.moveMouseTo(new Point(40,40));
-	Helper.sleep(1);
-	Browser.leftClick(new Point(x+SHIPS[shipNum-1],y))
-	Helper.sleep(6);
+    Helper.sleep(3);
+  }
 }
+
+function minimizeAllWindows() {
+  let anyMatched = true;
+  while (anyMatched) {
+    const screenshot = Browser.takeScreenshot();
+    const minimizeMatch = Vision.findMatch(screenshot, MINIMIZE_TPL, 0.95);
+    const xMatch = Vision.findMatch(screenshot, XBUTTONS_TPL, 0.93);
+    const x2Match = Vision.findMatch(screenshot, X2BUTTONS_TPL, 0.93);
+
+    anyMatched = xMatch || x2Match || minimizeMatch;
+    if (anyMatched) {
+      if (xMatch.isValid()) {
+        x = xMatch.getRect().getRight() - 3;
+        y = xMatch.getRect().getTop() + 3;
+        Browser.leftClick(Point(x, y));
+        Helper.log('Minimize button clicked.');
+      }
+      if (x2Match.isValid()) {
+        x = x2Match.getRect().getRight() - 3;
+        y = x2Match.getRect().getTop() + 3;
+        Browser.leftClick(Point(x, y));
+        Helper.log('Minimize button clicked.');
+      }
+      if (minimizeMatch.isValid()) {
+        x = minimizeMatch.getRect().getRight() - 3;
+        y = minimizeMatch.getRect().getTop() + 3;
+        Browser.leftClick(Point(x, y));
+        Helper.log('Minimize button clicked.');
+      }
+    }
+
+    Helper.sleep(1);
+  }
+}
+
+function upgradeLasers() {
+  findAndClick(REFINING_TPL, null, 0.90);
+  Helper.sleep(1);
+
+  if (!isImagePresent(UPGRADE_BUTTON_ON_TPL)) {
+    findAndClick(UPGRADE_BUTTON_OFF_TPL, null, 0.90);
+    Helper.sleep(1);
+  }
+
+  if (isImagePresent(SEPROM_EMPTY)) {
+    Helper.log('No Seprom on ship. Skipping step...');
+    return false;
+  }
+
+  dragAndDrop(SEPROM_TPL, LASER_TPL);
+  Helper.sleep(2);
+  findAndClick(SELECT_QTY_DROPDOWN_TPL, null, 0.90);
+  Helper.sleep(2);
+  findAndClick(SCROLL_DOWN_TPL, null, 0.90);
+  Helper.sleep(2);
+  findAndClick(MAX_SEPROM_TPL, null, 0.95);
+  Helper.sleep(2);
+  findAndClick(UPGRADE_BUTTON_TPL, null, 0.90);
+
+  return true;
+}
+
+function sellOre() {
+  if (SELL_WITH_PET) {
+    Helper.log('Starting up pet.');
+    findAndClick(PET_ICON_TPL, null, 0.90);
+    Helper.sleep(2);
+    findAndClick(PET_PLAY_BTN_TPL, null, 0.90);
+    Helper.sleep(2);
+    findAndClick(PET_GEAR_BTN_TPL, null, 0.90);
+    Helper.sleep(2);
+    findAndClick(PET_CARGO_TRADE, null, 0.90);
+    Helper.sleep(2);
+  } else {
+    findAndClick(TRADE_ICON_TPL, null, 0.90);
+    Helper.sleep(2);
+  }
+
+  let sold = false;
+  while (!sold) {
+    if (isImagePresent(SELL_BUTTON_TPL)) {
+      findAndClick(SELL_BUTTON_TPL, null, 0.97);
+      Helper.msleep(500);
+    } else {
+      sold = true;
+    }
+  }
+
+  Helper.sleep(2);
+  findAndClick(TRADE_WINDOW_CORNER_TPL, null, 0.90);
+  Helper.sleep(2);
+  findAndClick(PET_STOP_BTN_TPL, null, 0.90);
+}
+
+function goToSkylab() {
+  const skylabUrl = `${Browser.getUrl().getHost()}/indexInternal.es?action=internalSkylab`;
+  Browser.loadUrl(skylabUrl);
+  Browser.finishLoading();
+}
+
+function fillMaterialAmounts(userIdx) {
+  const openTransportModule = "Skylab.showModule('transportModule');";
+  const sendMaterials = "Skylab.sendMaterials('normal');";
+  const fillSepromAmount = `document.getElementById('count_seprom').value = ${ACCOUNTS[userIdx].seprom};`;
+  const fillPromAmount = `document.getElementById('count_promerium').value = ${ACCOUNTS[userIdx].promerium};`;
+
+  Browser.executeJavascript(openTransportModule);
+  Helper.sleep(1);
+  Browser.executeJavascript(fillSepromAmount);
+  Browser.executeJavascript(fillPromAmount);
+  Helper.sleep(1);
+  Browser.executeJavascript(sendMaterials);
+}
+
+function openHangar() {
+  const clickHangar = "document.getElementById('hangar_btn').click()";
+  Browser.executeJavascript(clickHangar);
+  Browser.finishLoading();
+}
+
+function selectHangar(hangarIdx) {
+  const clickHangarIdx = `document.getElementsByClassName('header_hangar_slot')[${hangarIdx} - 1].click()`;
+  Browser.executeJavascript(clickHangarIdx);
+
+  Helper.log('Selected target Hangar.');
+  Browser.finishLoading();
+}
+
+function runScriptLogic(userIdx) {
+  Helper.log(`Logging in automatically to account #${userIdx}...`);
+  autoLogin(ACCOUNTS[userIdx].username, ACCOUNTS[userIdx].password);
+  Helper.log('Logged in automatically.');
+
+  Helper.log('Selecting target Hangar...');
+  openHangar();
+  selectHangar(ACCOUNTS[userIdx].hangar);
+  Helper.log('Selected target Hangar.');
+
+  Helper.log('Opening game map...');
+  openGameMap();
+  minimizeAllWindows();
+  Helper.log('Opened game map.');
+
+  Helper.log('Selling ore...');
+  sellOre();
+  Helper.log('Sold ore.');
+  Helper.log('Upgrading lasers with Seprom...');
+  upgradeLasers();
+  Helper.log('Upgraded lasers with Seprom.');
+
+  Helper.log('Transfering ore to ship...');
+  goToSkylab();
+  fillMaterialAmounts(userIdx);
+  Helper.log('Transfered ore to ship.');
+
+  Helper.log(`Logging out of account #${userIdx}...`);
+  logout();
+  Helper.log('Logged out.');
+}
+
 function main() {
-	if(SelectedUser==="all"){
-		numAccounts=mainaccountsInfo.length;
-		for(var i=startingAcount; i < numAccounts-1;i++){
-			AutoLogin(mainaccountsInfo[i][0], mainaccountsInfo[i][1]);
-			GoToSkyLab();
-			GoToSkyLab();
-			var fillInSep = "document.getElementById('module_transportModule_small').click();";
-			Browser.executeJavascript(fillInSep);
-			Helper.sleep(1);
-			var screenShot = Browser.takeScreenshot();
-			
-			var location=Vision.findMatch(screenShot,SEND_BTN_TPL, 0.90);
-			Helper.log(location.isValid());
-			Helper.sleep(1);
+  // +--------------------------+
+  // | Inform and warn the user |
+  // +--------------------------+
 
-			if (location.isValid()) {
-				GotoSelectShip(mainaccountsInfo[i][4])
-				GoInToGame();
-				minimiseAllWindows();
-				sellAndUpgrade();
-				GoToSkyLab();
-				fillInMatiralAmounts(i);
-			}
-		}
-	}else{
-		if (Browser.getUrl().getQuery().indexOf("internalMapRevolution") === -1) {
-			AutoLogin(mainaccountsInfo[SelectedUser][0], mainaccountsInfo[SelectedUser][1]);
-			GoToSkyLab();
-			Helper.sleep(2);
-			GotoSelectShip(mainaccountsInfo[SelectedUser][4])
-			GoInToGame();
-		}
-		minimiseAllWindows();
-		sellAndUpgrade();
-		GoToSkyLab()
-		fillInMatiralAmounts(SelectedUser)
-		
-	}
+  Helper.log('### ! ! ! DO NOT RESIZE THE BROWSER WHILE RUNNING THIS SCRIPT ! ! ! ###');
+  Helper.log('Used script version:', SCRIPT_VERSION, '(You have to check for updates manually)');
+
+  if (SELECTED_USER === 'ALL') {
+    // +---------------------------------+
+    // | Run the script for all accounts |
+    // +---------------------------------+
+
+    Helper.log('Running script for all accounts:', ACCOUNTS.length);
+
+    const numAccs = ACCOUNTS.length;
+    for (let idx = 0; idx < numAccs; idx += 1) {
+      Helper.log(`Running for account #${idx}...`);
+      runScriptLogic(idx);
+      Helper.log(`Finished running for account #${idx}.`);
+    }
+  } else {
+    // +------------------------------------------+
+    // | Run the script only for selected account |
+    // +------------------------------------------+
+    Helper.log(`Running script ONLY for account #${SELECTED_USER}`);
+    runScriptLogic(SELECTED_USER);
+    Helper.log(`Finished running script ONLY for account #${SELECTED_USER}`);
+  }
 }
 
 main();
