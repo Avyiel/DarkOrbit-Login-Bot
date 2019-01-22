@@ -1,14 +1,13 @@
 # Free DarkOrbit Login & Materials Bot
 
-Botfather.io script that logs into your accounts, sells materials and applies Seprom to lasers.
+[Botfather.io](https://botfather.io/scripts/11/) script that logs into your accounts, sells materials and applies Seprom to lasers.
         
 ## How to run this bot script?
 
-- Download the latest release and extract it
-- Edit the configuration at the top of the `bot.js` file
-- Use the [botfather.io client](https://botfather.io/downloads) to run the bot script
-
-Alternatively, you can install directly from _botfather_, inspect the `bot.js` file and edit your settings.
+- Open botfather and click the Start button
+- Search for _"DarkOrbit Ore Bot"_ and install the script
+- Click on the `Inspect` button and edit `bot.js` with your settings
+- Run the installed script
 
 ## Features and Roadmap:
 
