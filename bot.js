@@ -2,6 +2,9 @@
 // | User Configuration (feel free to edit it) |
 // +-------------------------------------------+
 
+// Currently supported languages: EN, DE
+const LANGUAGE = 'DE';
+
 // Remember: on JavaScript, we start counting at 0
 // That means the 3rd account's index is actually 2
 const SELECTED_USER = 'ALL';
@@ -20,12 +23,15 @@ const ACCOUNTS = [
     password: 'PASSWORD HERE',
     seprom: 4000,
     promerium: 4000,
-    hangar: 9,
+    hangar: 4,
   },
 ];
 
 // If set to false, you _MUST_ be near the trade station on your home base
-const SELL_WITH_PET = false;
+const SELL_WITH_PET = true;
+
+// Whether the game will auto start or not
+const AUTO_START = true;
 
 // +---------------------------------------------------------------------+
 // | Templates and Data (DON'T TOUCH ANYTHING BELOW THIS LINE AS A USER) |
@@ -42,30 +48,39 @@ const REFINING_DIR = TEMPLATE_DIR + 'refining/';
 const TRADE_DIR = TEMPLATE_DIR + 'trade/';
 
 const START_BUTTON_TPL = new Image(CLIENT_TPL_DIR + 'start_button.png');
+const LOGOUT_BUTTON_TPL = new Image(CLIENT_TPL_DIR + 'logout_button.png');
 const MINIMIZE_TPL = new Image(CLIENT_TPL_DIR + 'minimize_button.png');
 const XBUTTONS_TPL = new Image(CLIENT_TPL_DIR + 'close_button.png');
-const X2BUTTONS_TPL = new Image(CLIENT_TPL_DIR + 'close_buttton_two.png');
+const X2BUTTONS_TPL = new Image(CLIENT_TPL_DIR + 'close_button_two.png');
+const LOADING_SPINNER_TPL = new Image(CLIENT_TPL_DIR + 'loading_spinner.png');
 
 const PET_ICON_TPL = new Image(PET_TPL_DIR + 'pet_icon.png');
-const PET_PLAY_BTN_TPL = new Image(PET_TPL_DIR + 'play_button.png');
+const PET_PLAY_BTN_TPL = new Image(PET_TPL_DIR + 'start_button.png');
 const PET_STOP_BTN_TPL = new Image(PET_TPL_DIR + 'stop_button.png');
 const PET_GEAR_BTN_TPL = new Image(PET_TPL_DIR + 'gear_dropdown_button.png');
-const PET_CARGO_TRADE = new Image(PET_TPL_DIR + 'trade_entry.png');
+const PET_CARGO_TRADE = new Image(PET_TPL_DIR + 'trade_dropdown_entry.png');
 
 const REFINING_TPL = new Image(REFINING_DIR + 'refine.png');
 const LASER_TPL = new Image(REFINING_DIR + 'lasers.png');
 const SEPROM_TPL = new Image(REFINING_DIR + 'seprom.png');
-const UPGRADE_BUTTON_TPL = new Image(REFINING_DIR + 'upgrade_button.png');
-const UPGRADE_BUTTON_ON_TPL = new Image(REFINING_DIR + 'upgrade_button_on.png');
-const UPGRADE_BUTTON_OFF_TPL = new Image(REFINING_DIR + 'upgrade_button_off.png');
+const SEPROM_EMPTY = new Image(REFINING_DIR + 'seprom_empty.png');
 const SELECT_QTY_DROPDOWN_TPL = new Image(REFINING_DIR + 'qty_dropdown.png');
 const SCROLL_DOWN_TPL = new Image(REFINING_DIR + 'scroll_down.png');
 const MAX_SEPROM_TPL = new Image(REFINING_DIR + 'max_seprom.png');
+var UPGRADE_BUTTON_TPL = new Image(REFINING_DIR + 'upgrade_button.png');
+var UPGRADE_BUTTON_ON_TPL = new Image(REFINING_DIR + 'upgrade_button_on.png');
+var UPGRADE_BUTTON_OFF_TPL = new Image(REFINING_DIR + 'upgrade_button_off.png');
 
-const TRADE_ICON_TPL = new Image(TEMPLATE_DIR + 'trade_button.png');
+const TRADE_ICON_TPL = new Image(TRADE_DIR + 'trade_button.png');
 const TRADE_WINDOW_CORNER_TPL = new Image(TRADE_DIR + 'trade_window_corner.png');
-const SELL_BUTTON_TPL = new Image(TRADE_DIR + 'sell_button.png');
-const SEPROM_EMPTY = new Image(REFINING_DIR + 'seprom_empty.png');
+var SELL_BUTTON_TPL = new Image(TRADE_DIR + 'sell_button.png');
+
+if (LANGUAGE === 'DE') {
+  UPGRADE_BUTTON_TPL = new Image(REFINING_DIR + 'upgrade_button.de.png');
+  UPGRADE_BUTTON_ON_TPL = new Image(REFINING_DIR + 'upgrade_button_on.de.png');
+  UPGRADE_BUTTON_OFF_TPL = new Image(REFINING_DIR + 'upgrade_button_off.de.png');
+  SELL_BUTTON_TPL = new Image(TRADE_DIR + 'sell_button.de.png');
+}
 
 // +-----------------------------------------------------------------+
 // | Business Logic (DON'T TOUCH ANYTHING BELOW THIS LINE AS A USER) |
@@ -92,11 +107,11 @@ function autoLogin(username, password) {
 
   Helper.log('Entering account credentials...');
 
-  const fillUnameJs = "document.getElementById('bgcdw_login_form_username').value = " + username + ';';
+  const fillUnameJs = "document.getElementById('bgcdw_login_form_username').value = '" + username + "';";
   Browser.executeJavascript(fillUnameJs);
   Helper.sleep(1);
 
-  const fillPasswJs = "document.getElementById('bgcdw_login_form_password').value = " + password + ';';
+  const fillPasswJs = "document.getElementById('bgcdw_login_form_password').value = '" + password + "';";
   Browser.executeJavascript(fillPasswJs);
   Helper.sleep(1);
 
@@ -114,10 +129,11 @@ function logout() {
   Browser.finishLoading();
 }
 
-function isImagePresent(image) {
+function isImagePresent(image, score) {
   screenshot = Browser.takeScreenshot();
-  const location = Vision.findMatch(screenshot, image, 0.97);
-  return location.isValid();
+  const match = Vision.findMatch(screenshot, image, score);
+  Helper.debug(match, score);
+  return match.isValid();
 }
 
 function dragAndDrop(startImage, stopImage) {
@@ -133,27 +149,51 @@ function dragAndDrop(startImage, stopImage) {
   Browser.leftClick(endPos.getRect().getCenter());
 }
 
+function waitForLoadingSpinner() {
+  var loading = true;
+  while (loading) {
+    loading = isImagePresent(LOADING_SPINNER_TPL, 0.90);
+    Helper.sleep(1);
+  }
+}
+
 function openGameMap() {
-  const ingameUrl = Browser.getUrl().getHost() + '/indexInternal.es?action=internalMapRevolutio';
+  const ingameUrl = Browser.getUrl().getHost() + '/indexInternal.es?action=internalMapRevolution';
 
   Browser.loadUrl(ingameUrl);
   Browser.finishLoading();
+  Helper.sleep(5);
 
-  var btnClicked = false;
-  while (!btnClicked) {
+  var ingame = false;
+  while (!ingame) {
     Helper.log('Waiting for the game to load...');
 
     const screenshot = Browser.takeScreenshot();
     const startButtonMatch = Vision.findMatch(screenshot, START_BUTTON_TPL, 0.97);
 
-    if (startButtonMatch.isValid()) {
+    var startPressed = false;
+    if (AUTO_START || startPressed) {
+      ingame = isIngame();
+    } else if (startButtonMatch.isValid()) {
       Browser.leftClick(startButtonMatch.getRect().getCenter());
       Helper.log('Game start button clicked.');
-      btnClicked = true;
+      startPressed = true;
     }
 
     Helper.sleep(3);
   }
+}
+
+function isIngame() {
+  if (Browser.getUrl().getQuery().indexOf("internalMapRevolution") === -1) {
+    Helper.debug("Client not ingame. Url does not contain internalMapRevolution");
+    return false;
+  }
+
+  const logoutButtonMatch = Vision.findMatch(Browser.takeScreenshot(), LOGOUT_BUTTON_TPL, 0.99);
+
+  Helper.debug("Logout button match (isIngame check):", logoutButtonMatch);
+  return logoutButtonMatch.isValid();
 }
 
 function minimizeAllWindows() {
@@ -164,7 +204,7 @@ function minimizeAllWindows() {
     const xMatch = Vision.findMatch(screenshot, XBUTTONS_TPL, 0.93);
     const x2Match = Vision.findMatch(screenshot, X2BUTTONS_TPL, 0.93);
 
-    anyMatched = xMatch || x2Match || minimizeMatch;
+    anyMatched = xMatch.isValid() || x2Match.isValid() || minimizeMatch.isValid();
     if (anyMatched) {
       if (xMatch.isValid()) {
         x = xMatch.getRect().getRight() - 3;
@@ -188,18 +228,19 @@ function minimizeAllWindows() {
 
     Helper.sleep(1);
   }
+  Helper.log('All windows minimized.');
 }
 
 function upgradeLasers() {
   findAndClick(REFINING_TPL, null, 0.90);
   Helper.sleep(1);
 
-  if (!isImagePresent(UPGRADE_BUTTON_ON_TPL)) {
-    findAndClick(UPGRADE_BUTTON_OFF_TPL, null, 0.90);
+  if (!isImagePresent(UPGRADE_BUTTON_ON_TPL, 0.99)) {
+    findAndClick(UPGRADE_BUTTON_OFF_TPL, null, 0.95);
     Helper.sleep(1);
   }
 
-  if (isImagePresent(SEPROM_EMPTY)) {
+  if (isImagePresent(SEPROM_EMPTY, 0.95)) {
     Helper.log('No Seprom on ship. Skipping step...');
     return false;
   }
@@ -221,24 +262,25 @@ function sellOre() {
   if (SELL_WITH_PET) {
     Helper.log('Starting up pet.');
     findAndClick(PET_ICON_TPL, null, 0.90);
-    Helper.sleep(2);
+    Helper.sleep(1);
     findAndClick(PET_PLAY_BTN_TPL, null, 0.90);
-    Helper.sleep(2);
+    Helper.sleep(1);
     findAndClick(PET_GEAR_BTN_TPL, null, 0.90);
-    Helper.sleep(2);
+    Helper.sleep(1);
     findAndClick(PET_CARGO_TRADE, null, 0.90);
-    Helper.sleep(2);
+    Helper.sleep(1);
   } else {
     findAndClick(TRADE_ICON_TPL, null, 0.90);
-    Helper.sleep(2);
+    Helper.sleep(1);
   }
 
   var sold = false;
   while (!sold) {
-    if (isImagePresent(SELL_BUTTON_TPL)) {
-      findAndClick(SELL_BUTTON_TPL, null, 0.97);
-      Helper.msleep(500);
+    if (isImagePresent(SELL_BUTTON_TPL, 0.99)) {
+      Helper.log('Selling ore...');
+      findAndClick(SELL_BUTTON_TPL, null, 0.99);
     } else {
+      Helper.log('No more ore to sell.');
       sold = true;
     }
   }
@@ -247,6 +289,8 @@ function sellOre() {
   findAndClick(TRADE_WINDOW_CORNER_TPL, null, 0.90);
   Helper.sleep(2);
   findAndClick(PET_STOP_BTN_TPL, null, 0.90);
+  Helper.sleep(1);
+  findAndClick(PET_ICON_TPL, null, 0.90);
 }
 
 function goToSkylab() {
@@ -257,7 +301,7 @@ function goToSkylab() {
 
 function fillMaterialAmounts(userIdx) {
   const openTransportModule = "Skylab.showModule('transportModule');";
-  const sendMaterials = "Skylab.sendMaterials('normal');";
+  const sendMaterials = "Skylab.sendTransport('normal');";
   const fillSepromAmount = "document.getElementById('count_seprom').value = " + ACCOUNTS[userIdx].seprom + ';';
   const fillPromAmount = "document.getElementById('count_promerium').value = " + ACCOUNTS[userIdx].promerium + ';';
 
@@ -267,20 +311,22 @@ function fillMaterialAmounts(userIdx) {
   Browser.executeJavascript(fillPromAmount);
   Helper.sleep(1);
   Browser.executeJavascript(sendMaterials);
+  Helper.sleep(3);
 }
 
 function openHangar() {
   const clickHangar = "document.getElementById('hangar_btn').click()";
   Browser.executeJavascript(clickHangar);
+  Helper.sleep(2);
   Browser.finishLoading();
 }
 
 function selectHangar(hangarIdx) {
   const clickHangarIdx = "document.getElementsByClassName('header_hangar_slot')[" + hangarIdx - 1 + '].click();';
   Browser.executeJavascript(clickHangarIdx);
-
-  Helper.log('Selected target Hangar.');
+  Helper.sleep(2);
   Browser.finishLoading();
+  waitForLoadingSpinner();
 }
 
 function runScriptLogic(userIdx) {
@@ -295,8 +341,9 @@ function runScriptLogic(userIdx) {
 
   Helper.log('Opening game map...');
   openGameMap();
-  minimizeAllWindows();
   Helper.log('Opened game map.');
+
+  minimizeAllWindows();
 
   Helper.log('Selling ore...');
   sellOre();
@@ -320,7 +367,6 @@ function main() {
   // | Inform and warn the user |
   // +--------------------------+
 
-  Helper.log('### ! ! ! DO NOT RESIZE THE BROWSER WHILE RUNNING THIS SCRIPT ! ! ! ###');
   Helper.log('Used script version:', SCRIPT_VERSION, '(You have to check for updates manually)');
 
   if (SELECTED_USER === 'ALL') {
@@ -332,17 +378,17 @@ function main() {
 
     const numAccs = ACCOUNTS.length;
     for (var idx = 0; idx < numAccs; idx += 1) {
-      Helper.log(`Running for account #${idx}...`);
+      Helper.log('Running for account #', idx);
       runScriptLogic(idx);
-      Helper.log(`Finished running for account #${idx}.`);
+      Helper.log('Finished running for account #', idx);
     }
   } else {
     // +------------------------------------------+
     // | Run the script only for selected account |
     // +------------------------------------------+
-    Helper.log(`Running script ONLY for account #${SELECTED_USER}`);
+    Helper.log('Running script ONLY for account #', SELECTED_USER);
     runScriptLogic(SELECTED_USER);
-    Helper.log(`Finished running script ONLY for account #${SELECTED_USER}`);
+    Helper.log('Finished running script ONLY for account #', SELECTED_USER);
   }
 }
 
