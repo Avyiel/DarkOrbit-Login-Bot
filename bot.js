@@ -29,7 +29,7 @@ const AUTO_START = true;
 // +---------------------------------------------------------------------+
 /* eslint-disable no-undef */
 
-const SCRIPT_VERSION = '0.3.1';
+const SCRIPT_VERSION = '0.4';
 
 
 const TEMPLATE_DIR = 'templates/';
