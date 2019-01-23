@@ -325,15 +325,9 @@ function fillMaterialAmounts(userIdx) {
   Helper.sleep(3);
 }
 
-function openHangar() {
-  const clickHangar = "document.getElementById('hangar_btn').click()";
-  Browser.executeJavascript(clickHangar);
-  Helper.sleep(2);
-  Browser.finishLoading();
-}
-
 function selectHangar(hangarIdx) {
-  const clickHangarIdx = "document.getElementsByClassName('header_hangar_slot')[" + hangarIdx - 1 + '].click();';
+  const clickHangarIdx = "document.getElementsByClassName('header_hangar_slot')[" + (hangarIdx - 1) + "].click();";
+  Helper.debug('Opening hangar with JS:', clickHangarIdx);
   Browser.executeJavascript(clickHangarIdx);
   Helper.sleep(2);
   Browser.finishLoading();
@@ -346,7 +340,6 @@ function runScriptLogic(userIdx) {
   Helper.log('Logged in automatically.');
 
   Helper.log('Selecting target Hangar...');
-  openHangar();
   selectHangar(ACCOUNTS[userIdx].hangar);
   Helper.log('Selected target Hangar.');
 
