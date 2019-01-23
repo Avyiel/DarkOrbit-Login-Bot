@@ -57,6 +57,7 @@ const SEPROM_TPL = new Image(REFINING_DIR + 'seprom.png');
 const SEPROM_EMPTY = new Image(REFINING_DIR + 'seprom_empty.png');
 const SELECT_QTY_DROPDOWN_TPL = new Image(REFINING_DIR + 'qty_dropdown.png');
 const SCROLL_DOWN_TPL = new Image(REFINING_DIR + 'scroll_down.png');
+const NO_SCROLL_DROPDOWN_TPL = new Image(REFINING_DIR + 'no_scroll_dropdown.png');
 const MAX_SEPROM_TPL = new Image(REFINING_DIR + 'max_seprom.png');
 var UPGRADE_BUTTON_TPL = new Image(REFINING_DIR + 'upgrade_button.png');
 var UPGRADE_BUTTON_ON_TPL = new Image(REFINING_DIR + 'upgrade_button_on.png');
@@ -231,7 +232,7 @@ function upgradeLasers() {
     Helper.sleep(1);
   }
 
-  if (isImagePresent(SEPROM_EMPTY, 0.95)) {
+  if (isImagePresent(SEPROM_EMPTY, 0.97)) {
     Helper.log('No Seprom on ship. Skipping step...');
     return false;
   }
@@ -240,9 +241,18 @@ function upgradeLasers() {
   Helper.sleep(2);
   findAndClick(SELECT_QTY_DROPDOWN_TPL, null, 0.90);
   Helper.sleep(2);
-  findAndClick(SCROLL_DOWN_TPL, null, 0.90);
-  Helper.sleep(2);
-  findAndClick(MAX_SEPROM_TPL, null, 0.95);
+  if (isImagePresent(NO_SCROLL_DROPDOWN_TPL, 0.9)) {
+    const noScrollMatch = Vision.findMatch(Browser.takeScreenshot(), NO_SCROLL_DROPDOWN_TPL, 0.95);
+    if (noScrollMatch.isValid()) {
+      const x = noScrollMatch.getRect().getRight() - 30;
+      const y = noScrollMatch.getRect().getBottom() - 10;
+      Browser.leftClick(Point(x, y));
+    }
+  } else {
+    findAndClick(SCROLL_DOWN_TPL, null, 0.90);
+    Helper.sleep(2);
+    findAndClick(MAX_SEPROM_TPL, null, 0.95);
+  }
   Helper.sleep(2);
   findAndClick(UPGRADE_BUTTON_TPL, null, 0.90);
 
