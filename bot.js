@@ -17,11 +17,9 @@ const ACCOUNTS = [
     seprom: 9100,
     promerium: 0,
     hangar: 1,
+    sellWithPet: true,
   },
 ];
-
-// If set to false, you _MUST_ be near the trade station on your home base
-const SELL_WITH_PET = true;
 
 // Whether the game will auto start or not
 const AUTO_START = true;
@@ -251,8 +249,8 @@ function upgradeLasers() {
   return true;
 }
 
-function sellOre() {
-  if (SELL_WITH_PET) {
+function sellOre(sellWithPet) {
+  if (sellWithPet) {
     Helper.log('Starting up pet.');
     findAndClick(PET_ICON_TPL, null, 0.90);
     Helper.sleep(1);
@@ -260,19 +258,25 @@ function sellOre() {
     Helper.sleep(1);
     findAndClick(PET_GEAR_BTN_TPL, null, 0.90);
     Helper.sleep(1);
+    Helper.log('Opening Trade window.');
     findAndClick(PET_CARGO_TRADE, null, 0.90);
     Helper.sleep(1);
-  } else {
+  } else if (isImagePresent(TRADE_ICON_TPL, 0.9)) {
+    Helper.log('Opening Trade window.');
     findAndClick(TRADE_ICON_TPL, null, 0.90);
     Helper.sleep(1);
+  } else {
+    Helper.log('Not near Trade base, skipping ore sale.');
+    return false;
   }
 
   var sold = false;
   while (!sold) {
     if (isImagePresent(SELL_BUTTON_TPL, 0.99)) {
-      Helper.log('Clicking sell...');
+      Helper.log('Selling ore...');
       findAndClick(SELL_BUTTON_TPL, null, 0.99);
     } else {
+      Helper.log('No more ore to sell.');
       sold = true;
     }
   }
@@ -280,9 +284,14 @@ function sellOre() {
   Helper.sleep(2);
   findAndClick(TRADE_WINDOW_CORNER_TPL, null, 0.90);
   Helper.sleep(2);
-  findAndClick(PET_STOP_BTN_TPL, null, 0.90);
-  Helper.sleep(1);
-  findAndClick(PET_ICON_TPL, null, 0.90);
+
+  if (sellWithPet) {
+    findAndClick(PET_STOP_BTN_TPL, null, 0.90);
+    Helper.sleep(1);
+    findAndClick(PET_ICON_TPL, null, 0.90);
+  }
+
+  return true;
 }
 
 function goToSkylab() {
@@ -338,7 +347,7 @@ function runScriptLogic(userIdx) {
   minimizeAllWindows();
 
   Helper.log('Selling ore...');
-  sellOre();
+  sellOre(ACCOUNTS[userIdx].sellWithPet);
   Helper.log('Sold ore.');
 
   Helper.log('Upgrading lasers with Seprom...');
