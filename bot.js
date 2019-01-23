@@ -156,17 +156,16 @@ function openGameMap() {
   Browser.finishLoading();
   Helper.sleep(5);
 
-  var ingame = false;
+  var ingame = false, startPressed = false;
   while (!ingame) {
     Helper.log('Waiting for the game to load...');
 
-    const screenshot = Browser.takeScreenshot();
-    const startButtonMatch = Vision.findMatch(screenshot, START_BUTTON_TPL, 0.97);
+    const startButtonMatch = Vision.findMatch(Browser.takeScreenshot(), START_BUTTON_TPL, 0.97);
 
-    var startPressed = false;
     if (AUTO_START || startPressed) {
       ingame = isIngame();
     } else if (startButtonMatch.isValid()) {
+      Helper.debug('Searching for start button', startButtonMatch);
       Browser.leftClick(startButtonMatch.getRect().getCenter());
       Helper.log('Game start button clicked.');
       startPressed = true;
@@ -174,6 +173,7 @@ function openGameMap() {
 
     Helper.sleep(3);
   }
+  Helper.sleep(3);
 }
 
 function isIngame() {
