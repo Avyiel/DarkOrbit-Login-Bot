@@ -308,6 +308,7 @@ function goToSkylab() {
   const skylabUrl = Browser.getUrl().getHost() + '/indexInternal.es?action=internalSkylab';
   Browser.loadUrl(skylabUrl);
   Browser.finishLoading();
+  Helper.sleep(2);
 }
 
 function fillMaterialAmounts(userIdx) {
@@ -339,6 +340,10 @@ function runScriptLogic(userIdx) {
   autoLogin(ACCOUNTS[userIdx].username, ACCOUNTS[userIdx].password);
   Helper.log('Logged in automatically.');
 
+  Helper.log('Finishing up previous transfers...');
+  goToSkylab();
+  Helper.log('Finished up previous transfers.');
+
   Helper.log('Selecting target Hangar...');
   selectHangar(ACCOUNTS[userIdx].hangar);
   Helper.log('Selected target Hangar.');
@@ -358,6 +363,7 @@ function runScriptLogic(userIdx) {
   Helper.log('Upgraded lasers with Seprom.');
 
   Helper.log('Transfering ore to ship...');
+  goToSkylab();
   goToSkylab();
   fillMaterialAmounts(userIdx);
   Helper.log('Transfered ore to ship.');
