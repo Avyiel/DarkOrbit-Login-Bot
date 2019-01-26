@@ -1,5 +1,6 @@
 {
   "rules": {
+    "no-multi-spaces": "off",
     "no-undef": "off",
     "no-var": "off",
     "prefer-template": "off"
