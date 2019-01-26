@@ -27,7 +27,6 @@ const AUTO_START = true;
 // +---------------------------------------------------------------------+
 // | Templates and Data (DON'T TOUCH ANYTHING BELOW THIS LINE AS A USER) |
 // +---------------------------------------------------------------------+
-/* eslint-disable no-undef */
 
 const SCRIPT_VERSION = '0.4';
 
@@ -149,14 +148,27 @@ function waitForLoadingSpinner() {
   }
 }
 
+function isIngame() {
+  if (Browser.getUrl().getQuery().indexOf('internalMapRevolution') === -1) {
+    Helper.debug('Client not ingame. Url does not contain internalMapRevolution');
+    return false;
+  }
+
+  const logoutButtonMatch = Vision.findMatch(Browser.takeScreenshot(), LOGOUT_BUTTON_TPL, 0.99);
+
+  Helper.debug('Logout button match (isIngame check):', logoutButtonMatch);
+  return logoutButtonMatch.isValid();
+}
+
 function openGameMap() {
+  var ingame = false;
+  var startPressed = false;
   const ingameUrl = Browser.getUrl().getHost() + '/indexInternal.es?action=internalMapRevolution';
 
   Browser.loadUrl(ingameUrl);
   Browser.finishLoading();
   Helper.sleep(5);
 
-  var ingame = false, startPressed = false;
   while (!ingame) {
     Helper.log('Waiting for the game to load...');
 
@@ -174,18 +186,6 @@ function openGameMap() {
     Helper.sleep(3);
   }
   Helper.sleep(3);
-}
-
-function isIngame() {
-  if (Browser.getUrl().getQuery().indexOf("internalMapRevolution") === -1) {
-    Helper.debug("Client not ingame. Url does not contain internalMapRevolution");
-    return false;
-  }
-
-  const logoutButtonMatch = Vision.findMatch(Browser.takeScreenshot(), LOGOUT_BUTTON_TPL, 0.99);
-
-  Helper.debug("Logout button match (isIngame check):", logoutButtonMatch);
-  return logoutButtonMatch.isValid();
 }
 
 function minimizeAllWindows() {
@@ -260,6 +260,8 @@ function upgradeLasers() {
 }
 
 function sellOre(sellWithPet) {
+  var sold = false;
+
   if (sellWithPet) {
     Helper.log('Starting up pet.');
     findAndClick(PET_ICON_TPL, null, 0.90);
@@ -280,7 +282,6 @@ function sellOre(sellWithPet) {
     return false;
   }
 
-  var sold = false;
   while (!sold) {
     if (isImagePresent(SELL_BUTTON_TPL, 0.99)) {
       Helper.log('Selling ore...');
@@ -327,7 +328,7 @@ function fillMaterialAmounts(userIdx) {
 }
 
 function selectHangar(hangarIdx) {
-  const clickHangarIdx = "document.getElementsByClassName('header_hangar_slot')[" + (hangarIdx - 1) + "].click();";
+  const clickHangarIdx = "document.getElementsByClassName('header_hangar_slot')[" + (hangarIdx - 1) + '].click();';
   Helper.debug('Opening hangar with JS:', clickHangarIdx);
   Browser.executeJavascript(clickHangarIdx);
   Helper.sleep(2);
@@ -379,6 +380,7 @@ function main() {
   // +--------------------------+
   // | Inform and warn the user |
   // +--------------------------+
+  var idx;
 
   Helper.log('Used script version:', SCRIPT_VERSION, '(You have to check for updates manually)');
 
@@ -390,7 +392,7 @@ function main() {
     Helper.log('Running script for all accounts:', ACCOUNTS.length);
 
     const numAccs = ACCOUNTS.length;
-    for (var idx = 0; idx < numAccs; idx += 1) {
+    for (idx = 0; idx < numAccs; idx += 1) {
       Helper.log('Running for account #', idx);
       runScriptLogic(idx);
       Helper.log('Finished running for account #', idx);
