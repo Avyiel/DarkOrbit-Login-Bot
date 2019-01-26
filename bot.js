@@ -12,12 +12,14 @@ const SELECTED_USER = 'ALL';
 // You may have as many accounts as you want. Just copy/paste and edit
 const ACCOUNTS = [
   {
-    username: 'USERNAME HERE',
-    password: 'PASSWORD HERE',
-    seprom: 9100,
-    promerium: 0,
-    hangar: 1,
-    sellWithPet: true,
+    username: '',         // Enter your username between quotes -> ''
+    password: '',         // Enter your password between quotes -> ''
+    hangar: 1,            // The hangar with the biggest cargo space
+    sellOre: false,       // Should the bot sell ALL the ore?
+    upgradeLasers: true,  // Should the bot upgrade lasers with ALL the Seprom?
+    sellWithPet: true,    // Should be bot user the PET trade gear to sell?
+    seprom: 9100,         // How much Seprom to send
+    promerium: 0,         // How much Promerium to send
   },
 ];
 
@@ -355,13 +357,21 @@ function runScriptLogic(userIdx) {
 
   minimizeAllWindows();
 
-  Helper.log('Selling ore...');
-  sellOre(ACCOUNTS[userIdx].sellWithPet);
-  Helper.log('Sold ore.');
+  if (ACCOUNTS[userIdx].sellOre) {
+    Helper.log('Selling ore...');
+    sellOre(ACCOUNTS[userIdx].sellWithPet);
+    Helper.log('Sold ore.');
+  } else {
+    Helper.log('Selling ore disabled, skipping.');
+  }
 
-  Helper.log('Upgrading lasers with Seprom...');
-  upgradeLasers();
-  Helper.log('Upgraded lasers with Seprom.');
+  if (ACCOUNTS[userIdx].upgradeLasers) {
+    Helper.log('Upgrading lasers with Seprom...');
+    upgradeLasers();
+    Helper.log('Upgraded lasers with Seprom.');
+  } else {
+    Helper.log('Upgrading lasers with Seprom disabled, skipping.');
+  }
 
   Helper.log('Transfering ore to ship...');
   goToSkylab();
