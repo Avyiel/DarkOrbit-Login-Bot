@@ -30,7 +30,7 @@ const AUTO_START = true;
 // | Templates and Data (DON'T TOUCH ANYTHING BELOW THIS LINE AS A USER) |
 // +---------------------------------------------------------------------+
 
-const SCRIPT_VERSION = '0.4';
+const SCRIPT_VERSION = '0.5.1';
 
 
 const TEMPLATE_DIR = 'templates/';
