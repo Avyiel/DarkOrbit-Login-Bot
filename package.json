@@ -1,6 +1,6 @@
 {
   "name": "darkorbit-login-bot",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "DarkOrbit Login & Materials Bot",
   "main": "bot.js",
   "scripts": {
